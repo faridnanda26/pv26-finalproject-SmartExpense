@@ -1,0 +1,423 @@
+/* ============================================================================
+   HALAMAN LOGIN & SIGN-IN (Shared Styles)
+   ============================================================================ */
+
+/* Container QWidget */
+QWidget#loginPage, QWidget#signinPage {
+    background-color: #f0f2f5; 
+}
+
+/* Container Kartu */
+#loginCard, #signupCard {
+    background-color: #ffffff;
+    border: 1px solid #dcdde1;
+    border-radius: 15px;
+}
+
+/* Judul */
+#loginTitle, #signupTitle {
+    font-size: 24px;
+    font-weight: bold;
+    color: #005088;
+    background: transparent;
+    margin-bottom: 10px;
+}
+
+/* Style Input Field - PERBAIKAN WARNA TEKS */
+#loginCard QLineEdit, #signupCard QLineEdit {
+    padding: 12px;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    background-color: #ffffff; /* Lebih kontras dari f8f9fa */
+    font-size: 14px;
+    color: #2c3e50; /* Warna teks utama gelap */
+}
+
+/* Memperbaiki warna Placeholder (teks petunjuk) */
+#loginCard QLineEdit::placeholder, #signupCard QLineEdit::placeholder {
+    color: #95a5a6;
+}
+
+/* Fokus state yang konsisten */
+#loginCard QLineEdit:focus, #signupCard QLineEdit:focus {
+    border: 2px solid #005088;
+    background-color: #ffffff;
+}
+
+/* Tombol Utama (Masuk & Daftar Sekarang) */
+#btnLogin, #btnRegister {
+    background-color: #005088;
+    color: white;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+#btnLogin:hover, #btnRegister:hover {
+    background-color: #003d66;
+}
+
+/* Tombol Sekunder (Daftar & Batal) */
+#btnGoToSignup, #btnBack {
+    background-color: transparent;
+    color: #005088;
+    border: 1px solid #005088;
+    padding: 11px;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+#btnGoToSignup:hover, #btnBack:hover {
+    background-color: #eef2f7;
+}
+
+/* Khusus Tombol Batal jika ingin tetap aksen merah lembut */
+#btnBack {
+    color: #e74c3c;
+    border: 1px solid #e74c3c;
+}
+
+#btnBack:hover {
+    background-color: #fdf2f2;
+}
+
+/* ============================================================================
+   HALAMAN DASHBOARD
+   ============================================================================ */
+
+#dashboardPage {
+    background-color: #f8f9fa;
+}
+
+#welcomeLabel {
+    font-size: 18px;
+    font-weight: bold;
+    font-family: "Segoe UI", "Arial", sans-serif;
+    color: #2c3e50;         /* Warna teks biru gelap/charcoal */
+    padding-bottom: 5px;
+    border-bottom: 2px solid #e0e0e0; /* Garis tipis pembatas di bawah teks */
+}
+
+/* Toolbar Frame (Card Area) */
+#toolbarFrame {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 10px;
+}
+
+/* Modern Search Bar */
+#searchBar {
+    padding: 8px 15px;
+    border: 1px solid #dcdde1;
+    border-radius: 20px;
+    background-color: #f1f2f6;
+    color: #2f3640;
+    min-width: 280px;
+}
+
+#searchBar:focus {
+    border: 1px solid #005088;
+    background-color: #ffffff;
+}
+
+/* Table Design */
+#expenseTable {
+    background-color: #ffffff;
+    border: 1px solid #dcdde1;
+    border-radius: 8px;
+    gridline-color: #f1f2f6;
+    color: #2f3640; /* Memastikan teks tabel terlihat gelap */
+    outline: none;
+}
+
+#expenseTable QHeaderView::section {
+    background-color: #005088;
+    color: white;
+    padding: 12px;
+    font-weight: bold;
+    border: none;
+    border-right: 1px solid #003d66;
+}
+
+#expenseTable::item {
+    padding: 10px;
+    border-bottom: 1px solid #f1f2f6;
+}
+
+#expenseTable::item:selected {
+    background-color: #e3f2fd;
+    color: #005088;
+    font-weight: bold;
+}
+
+#expenseTable::item:focus {
+    border: none;
+    outline: none;
+}
+
+/* CRUD Buttons */
+#btnAdd, #btnUpdate, #btnDelete {
+    padding: 8px 18px;
+    font-weight: bold;
+    border-radius: 8px;
+}
+
+#btnAdd {
+    background-color: #005088;
+    color: white;
+    border: none;
+}
+
+#btnAdd:hover { background-color: #003d66; }
+
+#btnUpdate {
+    background-color: transparent;
+    color: #f39c12;
+    border: 1px solid #f39c12;
+}
+
+#btnUpdate:hover { background-color: #fff9ed; }
+
+#btnDelete {
+    background-color: transparent;
+    color: #e74c3c;
+    border: 1px solid #e74c3c;
+}
+
+#btnDelete:hover { background-color: #fff5f5; }
+
+/* Statistik Button (Navigation Style) */
+#btnStatistik {
+    background-color: transparent;
+    color: #005088;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    padding: 10px 20px;
+    text-align: right;
+}
+
+#btnStatistik:hover {
+    color: #00a8ff;
+    text-decoration: underline;
+}
+
+#labelBulan {
+    font-size: 18px;
+    font-weight: bold;
+    color: #005088;
+    min-width: 180px; /* Agar label tidak goyang saat nama bulan berubah panjangnya */
+    padding: 5px;
+}
+
+#btnNavMonth {
+    background-color: #ffffff;
+    color: #005088;
+    border: 2px solid #005088;
+    border-radius: 15px; 
+    font-weight: bold;
+    font-size: 14px; /* Kecilkan sedikit agar ruang gerak teks lebih luas */
+    outline: none;
+    padding-bottom: 3px;        
+    text-align: center;  
+}
+
+#btnNavMonth:hover {
+    background-color: #005088;
+    color: #ffffff;
+}
+
+#btnNavMonth:pressed {
+    background-color: #003d66;
+    border-color: #003d66;
+}
+
+/* ============================================================================
+   HALAMAN STATISTIK
+   ============================================================================ */
+
+#statistikPage {
+    background-color: #f0f2f5; 
+}
+
+/* Tombol Kembali ke Dashboard */
+#btnBack {
+    background-color: #ffffff;
+    color: #e74c3c; /* Merah lembut agar kontras dengan navigasi biru */
+    border: 2px solid #e74c3c;
+    border-radius: 10px;
+    padding: 8px 15px;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+#btnBack:hover {
+    background-color: #e74c3c;
+    color: #ffffff;
+}
+
+/* Container Navigasi Bulan */
+#navFrameStat {
+    background-color: #005088;
+    border-radius: 15px;
+    padding: 5px;
+}
+
+/* Label Bulan di Halaman Statistik */
+#labelBulanStat {
+    font-size: 18px;
+    font-weight: bold;
+    color: #ffffff; /* Putih karena background frame navigasi biru */
+    padding: 5px;
+}
+
+/* Tombol Navigasi (Lingkaran Putih) */
+#btnNavMonthStat {
+    background-color: #ffffff;
+    color: #005088;
+    border: none;
+    border-radius: 15px; /* Setengah dari 35px agar bulat sempurna */
+    font-weight: bold;
+    padding-bottom: 3px;
+    font-size: 16px;
+}
+
+#btnNavMonthStat:hover {
+    background-color: #e0e0e0;
+}
+
+/* Label Total Pengeluaran (Highlight Utama) */
+#labelTotalStat {
+    font-size: 24px;
+    font-weight: bold;
+    color: #00a676; /* Hijau sukses/uang */
+    background-color: #ffffff;
+    border: 1px solid #dcdcdc;
+    border-radius: 12px;
+    padding: 15px;
+    margin: 0px;
+}
+
+/* Container Grafik */
+#chartContainer {
+    background-color: #ffffff;
+    border-radius: 20px;
+    border: 1px solid #dcdcdc;
+    padding: 10px;
+}
+
+#btnKlasifikasi {
+    background-color: #ffffff;
+    color: #00a676; /* Warna hijau agar senada dengan nuansa uang/Klasifikasi */
+    border: 2px solid #00a676;
+    border-radius: 10px;
+    padding: 8px 15px;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+#btnKlasifikasi:hover {
+    background-color: #00a676;
+    color: #ffffff;
+}
+
+/* ============================================================================
+   HALAMAN KLASIFIKASI
+   ============================================================================ */
+
+#klasifikasiPage {
+    background-color: #f0f2f5; /* Senada dengan statistikPage */
+}
+
+/* Header Text */
+#titleLabel {
+    font-size: 24px;
+    font-weight: bold;
+    color: #005088; /* Menggunakan Biru Navy Statistik */
+}
+
+#subtitleLabel {
+    font-size: 13px;
+    color: #475569;
+    font-weight: 500;
+}
+
+/* Tombol Kembali (Menggunakan skema warna Merah Statistik) */
+#btnBack {
+    background-color: #ffffff;
+    color: #e74c3c;
+    border: 2px solid #e74c3c;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+#btnBack:hover {
+    background-color: #e74c3c;
+    color: #ffffff;
+}
+
+/* Card Utama (Senada dengan chartContainer) */
+#classifierCard {
+    background-color: #ffffff;
+    border: 1px solid #dcdcdc;
+    border-radius: 20px;
+}
+
+/* Input Area */
+#inputInstruction {
+    font-size: 15px;
+    font-weight: bold;
+    color: #005088;
+}
+
+#inputDeskripsi {
+    background-color: #ffffff;
+    border: 1px solid #dcdcdc;
+    border-radius: 10px;
+    padding: 0px 15px;
+    font-size: 15px;
+    color: #333333;
+}
+
+#inputDeskripsi:focus {
+    border: 2px solid #005088; /* Highlight biru saat mengetik */
+}
+
+/* Tombol Analisis (Menggunakan skema warna Hijau Statistik) */
+#btnKlasifikasi2 {
+    background-color: #ffffff;
+    color: #00a676; 
+    border: 2px solid #00a676;
+    border-radius: 10px;
+    padding: 8px 15px;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+#btnKlasifikasi2:hover {
+    background-color: #00a676;
+    color: #ffffff;
+}
+
+/* Garis Pemisah */
+#dividerLine {
+    background-color: #eeeeee;
+    max-height: 1px;
+}
+
+/* Bagian Hasil */
+#resultHeader {
+    letter-spacing: 2px;
+    font-size: 11px;
+    font-weight: bold;
+    color: #7f8c8d;
+}
+
+#labelHasil {
+    font-size: 32px;
+    font-weight: bold;
+    color: #005088; /* Kembali ke Biru Navy untuk hasil utama */
+    margin-top: 5px;
+}
