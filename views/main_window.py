@@ -13,6 +13,7 @@ from views.login import Login
 from views.signin import SignIn
 from views.dashboard import Dashboard
 from views.statistik import Statistik
+from views.klasifikasi import Klasifikasi
 
 class MainWindow(QMainWindow):
     def __init__(self, db):
@@ -48,13 +49,14 @@ class MainWindow(QMainWindow):
         self.sign_in_page = SignIn(self.db)
         self.dashboard_page = Dashboard(self.db)
         self.stat_page = Statistik(self.db)
+        self.klasifikasi_page = Klasifikasi(self.db)
 
         # Tambahkan ke QTabWidget
         self.tabs.addTab(self.login_page, "Login")
         self.tabs.addTab(self.sign_in_page, "Sign-In")
         self.tabs.addTab(self.dashboard_page, "Dashboard")
         self.tabs.addTab(self.stat_page, "Statistik")
-        self.tabs.addTab(QLabel('Klasifikasi'), "Klasifikasi")
+        self.tabs.addTab(self.klasifikasi_page, "klasifikasi")
         
         # 1. Navigasi antar Tab
         self.login_page.go_to_signup.connect(lambda: self.tabs.setCurrentIndex(1))
@@ -62,6 +64,7 @@ class MainWindow(QMainWindow):
         self.dashboard_page.go_to_stat.connect(lambda: self.tabs.setCurrentIndex(3))
         self.stat_page.go_back.connect(lambda: self.tabs.setCurrentIndex(2))
         self.stat_page.go_klasifikasi.connect(lambda: self.tabs.setCurrentIndex(4))
+        self.klasifikasi_page.go_back.connect(lambda: self.tabs.setCurrentIndex(3))
 
         # 2. Respon ketika Login Berhasil
         self.login_page.login_success.connect(self.on_login_success)
@@ -121,7 +124,7 @@ class MainWindow(QMainWindow):
             "- Valerine Jesika Dewi (F1D02310027)\n"
             "- Farid Nanda Syauqi (F1D02310050)\n"
             "- Amir Hamzah (F1D021027)\n\n"
-            "Build Date: June 2026\n"
+            "Build Date: Mei 2026\n"
             "© 2026 Tim Proyek Unram."
         )
         

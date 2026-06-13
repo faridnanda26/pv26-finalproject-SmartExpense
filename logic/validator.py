@@ -41,3 +41,33 @@ class Validator:
             return False, "Nama tidak boleh mengandung angka"
             
         return True, ""
+    
+    @staticmethod
+    def validasi_nominal(nominal_str):
+        """
+        Memvalidasi input nominal uang.
+        Return: (True/False, pesan_error)
+        """
+        # 1. Cek apakah kosong
+        if not nominal_str or len(nominal_str.strip()) == 0:
+            return False, "Nominal tidak boleh kosong."
+
+        # 2. Cek apakah berisi karakter non-angka
+        # .isdigit() hanya untuk angka bulat positif
+        if not nominal_str.isdigit():
+            return False, "Nominal harus berupa angka bulat (tanpa titik/koma/Rp)."
+
+        # 3. Cek apakah nilainya lebih dari nol
+        try:
+            nominal_int = int(nominal_str)
+            if nominal_int <= 0:
+                return False, "Nominal harus lebih besar dari Rp 0."
+            
+            # Cek batas atas (opsional, misal mencegah input 100 Triliun yang tidak masuk akal)
+            if nominal_int > 1000000000: # 1 Miliar
+                return False, "Nominal terlalu besar, mohon cek kembali."
+                
+        except ValueError:
+            return False, "Format angka tidak valid."
+
+        return True, ""
