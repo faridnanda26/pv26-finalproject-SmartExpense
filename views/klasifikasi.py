@@ -2,19 +2,19 @@ import joblib
 import os
 from PySide6.QtWidgets import (
     QWidget, QVBoxLayout, QHBoxLayout, QLabel, 
-    QPushButton, QLineEdit, QFrame, QMessageBox, QGroupBox
+    QPushButton, QLineEdit, QFrame, QMessageBox
 )
-from PySide6.QtCore import Qt, Signal
+from PySide6.QtCore import Qt
 
 class Klasifikasi(QWidget):
-    go_back = Signal()
-
     def __init__(self, db_manager):
         super().__init__()
         self.db = db_manager
         self.model = None
+        
         self.setAttribute(Qt.WA_StyledBackground, True)
-        self.setObjectName("klasifikasiPage")
+        self.setObjectName("contentArea")
+        
         self.load_model()
         self.init_ui()
 
@@ -30,69 +30,61 @@ class Klasifikasi(QWidget):
             print(f"Gagal memuat model: {e}")
 
     def init_ui(self):
-        self.setObjectName("klasifikasiPage")
+        # Layout Utama Vertikal Konten Kanan
         main_layout = QVBoxLayout(self)
-        main_layout.setContentsMargins(40, 40, 40, 40)
-        main_layout.setSpacing(0)
+        main_layout.setContentsMargins(25, 25, 25, 25)
+        main_layout.setSpacing(20)
 
-        # --- 1. HEADER AREA ---
+        # --- 1. HEADER AREA  ---
         header_widget = QWidget()
         header_widget.setObjectName("headerArea")
-        header_layout = QHBoxLayout(header_widget)
-        header_layout.setContentsMargins(0, 0, 0, 20)
+        header_layout = QVBoxLayout(header_widget)
+        header_layout.setContentsMargins(0, 0, 0, 10)
+        header_layout.setSpacing(5)
 
-        self.btnBack = QPushButton("<- Kembali")
-        self.btnBack.setObjectName("btnBack")
-        self.btnBack.setCursor(Qt.PointingHandCursor)
-        self.btnBack.clicked.connect(self.go_back.emit)
-        self.btnBack.setFixedSize(120, 40)
+        self.title_label = QLabel("Smart AI Classification")
+        self.title_label.setObjectName("welcomeLabel") 
         
-        header_layout.addWidget(self.btnBack)
-        header_layout.addStretch()
-        
-        title_info = QVBoxLayout()
-        self.title_label = QLabel("Smart Classification")
-        self.title_label.setObjectName("titleLabel")
-        
-        self.subtitle_label = QLabel("AI-Powered Expense Categorization")
+        self.subtitle_label = QLabel("Asisten Otomatis Prediksi Kategori Pengeluaran Berbasis NLP")
         self.subtitle_label.setObjectName("subtitleLabel")
         
-        title_info.addWidget(self.title_label, alignment=Qt.AlignRight)
-        title_info.addWidget(self.subtitle_label, alignment=Qt.AlignRight)
-        header_layout.addLayout(title_info)
-        
+        header_layout.addWidget(self.title_label)
+        header_layout.addWidget(self.subtitle_label)
         main_layout.addWidget(header_widget)
 
-        # --- 2. MAIN CONTENT CARD ---
+        # --- 2. MAIN CONTENT CARD  ---
         self.central_card = QFrame()
         self.central_card.setObjectName("classifierCard")
+        
         card_layout = QVBoxLayout(self.central_card)
-        card_layout.setContentsMargins(35, 40, 35, 40)
-        card_layout.setSpacing(25)
+        card_layout.setContentsMargins(35, 35, 35, 35)
+        card_layout.setSpacing(20)
 
         # Input Section
         input_box = QVBoxLayout()
+        input_box.setSpacing(10)
+        
         self.instruction = QLabel("Apa yang Anda beli hari ini?")
         self.instruction.setObjectName("inputInstruction")
         
         self.leDeskripsi = QLineEdit()
-        self.leDeskripsi.setPlaceholderText("Misal: Nasi goreng spesial pedas...")
+        self.leDeskripsi.setPlaceholderText("Misal: Nasi goreng spesial pedas atau bayar token listrik...")
         self.leDeskripsi.setObjectName("inputDeskripsi")
-        self.leDeskripsi.setFixedHeight(55)
+        self.leDeskripsi.setFixedHeight(50)
         
         input_box.addWidget(self.instruction)
         input_box.addWidget(self.leDeskripsi)
         card_layout.addLayout(input_box)
 
         # Action Button
-        self.btnKlasifikasi = QPushButton("Analisis Kategori")
+        self.btnKlasifikasi = QPushButton("Analisis Deskripsi dengan AI")
         self.btnKlasifikasi.setObjectName("btnKlasifikasi2")
         self.btnKlasifikasi.setCursor(Qt.PointingHandCursor)
-        self.btnKlasifikasi.setFixedHeight(50)
+        self.btnKlasifikasi.setFixedHeight(45)
         self.btnKlasifikasi.clicked.connect(self.proses_klasifikasi)
         card_layout.addWidget(self.btnKlasifikasi)
 
-        # Divider (Garis Pemisah)
+        # Divider
         line = QFrame()
         line.setObjectName("dividerLine")
         line.setFrameShape(QFrame.HLine)
@@ -100,13 +92,14 @@ class Klasifikasi(QWidget):
 
         # Result Section
         result_box = QVBoxLayout()
+        result_box.setSpacing(8)
         result_box.setAlignment(Qt.AlignCenter)
         
-        self.labelTitleHasil = QLabel("HASIL PREDIKSI")
+        self.labelTitleHasil = QLabel("HASIL PREDIKSI KATEGORI")
         self.labelTitleHasil.setObjectName("resultHeader")
         self.labelTitleHasil.setAlignment(Qt.AlignCenter)
         
-        self.labelHasil = QLabel("Menunggu Input...")
+        self.labelHasil = QLabel("Menunggu Input Deskripsi Transaksi...")
         self.labelHasil.setObjectName("labelHasil")
         self.labelHasil.setAlignment(Qt.AlignCenter)
         
@@ -115,32 +108,34 @@ class Klasifikasi(QWidget):
         card_layout.addLayout(result_box)
 
         main_layout.addWidget(self.central_card)
-        main_layout.addStretch()
+        main_layout.addStretch() 
 
     def proses_klasifikasi(self):
         text = self.leDeskripsi.text().strip()
 
         if not text:
             QMessageBox.warning(self, "Input Kosong", "Harap masukkan deskripsi terlebih dahulu!")
+            self.leDeskripsi.setFocus()
             return
 
         if self.model:
             try:
-                # Prediksi menggunakan model NLP
+                # Jalankan prediksi menggunakan pipeline NLP (.pkl)
                 prediction = self.model.predict([text])[0]
+                self.labelHasil.setText(str(prediction).upper())
                 
-                # Update Label Hasil
-                self.labelHasil.setText(prediction)
-                
-                # Berikan warna berbeda berdasarkan kategori
-                if prediction == "Makanan" or prediction == "Minuman":
-                    self.labelHasil.setStyleSheet("font-size: 28px; font-weight: bold; color: #f39c12;")
+                if prediction in ["Makanan", "Minuman"]:
+                    self.labelHasil.setProperty("categoryState", "food")
                 elif prediction == "Transportasi":
-                    self.labelHasil.setStyleSheet("font-size: 28px; font-weight: bold; color: #1abc9c;")
+                    self.labelHasil.setProperty("categoryState", "transport")
                 else:
-                    self.labelHasil.setStyleSheet("font-size: 28px; font-weight: bold; color: #005088;")
+                    self.labelHasil.setProperty("categoryState", "default")
+                
+                # Memaksa Qt Engine memoles ulang style secara dinamis sesuai properti baru
+                self.labelHasil.style().unpolish(self.labelHasil)
+                self.labelHasil.style().polish(self.labelHasil)
                     
             except Exception as e:
                 QMessageBox.critical(self, "Error", f"Gagal melakukan klasifikasi: {e}")
         else:
-            QMessageBox.critical(self, "Model Error", "Model klasifikasi (.pkl) tidak ditemukan!")
+            QMessageBox.critical(self, "Model Error", "Model klasifikasi (.pkl) tidak ditemukan di folder assets/models!")

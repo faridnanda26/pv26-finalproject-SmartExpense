@@ -1,4 +1,34 @@
 /* ============================================================================
+   HALAMAN SPLASH SCREEN SINEMATIK
+   ============================================================================ */
+
+#splashPage {
+    background-color: #050b14; 
+}
+
+#splashLogo {
+    margin-bottom: 5px;
+}
+
+#splashTitle {
+    font-size: 32px;
+    font-weight: 800;
+    color: #ffffff;
+    font-family: "Segoe UI", "Arial Black", sans-serif;
+    letter-spacing: 8px; 
+    margin-bottom: 2px;
+}
+
+#splashSubtitle {
+    font-size: 11px;
+    font-weight: 600;
+    color: #4fc3f7; 
+    font-family: "Segoe UI", sans-serif;
+    letter-spacing: 3px; 
+    line-height: 18px;
+}
+
+/* ============================================================================
    HALAMAN LOGIN & SIGN-IN (Shared Styles)
    ============================================================================ */
 
@@ -23,17 +53,16 @@ QWidget#loginPage, QWidget#signinPage {
     margin-bottom: 10px;
 }
 
-/* Style Input Field - PERBAIKAN WARNA TEKS */
+/* Style Input Field */
 #loginCard QLineEdit, #signupCard QLineEdit {
     padding: 12px;
     border: 1px solid #ced4da;
     border-radius: 8px;
-    background-color: #ffffff; /* Lebih kontras dari f8f9fa */
+    background-color: #ffffff; 
     font-size: 14px;
-    color: #2c3e50; /* Warna teks utama gelap */
+    color: #2c3e50; 
 }
 
-/* Memperbaiki warna Placeholder (teks petunjuk) */
 #loginCard QLineEdit::placeholder, #signupCard QLineEdit::placeholder {
     color: #95a5a6;
 }
@@ -58,27 +87,26 @@ QWidget#loginPage, QWidget#signinPage {
 }
 
 /* Tombol Sekunder (Daftar & Batal) */
-#btnGoToSignup, #btnBack {
-    background-color: transparent;
-    color: #005088;
-    border: 1px solid #005088;
-    padding: 11px;
-    border-radius: 8px;
-    font-weight: bold;
+#signupLink {
+    font-size: 13px; /* [cite: 61] */
+    color: #555555; 
+    margin-top: 10px;   
+    margin-bottom: 5px; 
 }
 
-#btnGoToSignup:hover, #btnBack:hover {
-    background-color: #eef2f7;
+#signupLink QWidget:hover {
+    text-decoration: underline;
 }
 
-/* Khusus Tombol Batal jika ingin tetap aksen merah lembut */
-#btnBack {
-    color: #e74c3c;
-    border: 1px solid #e74c3c;
+#loginLink {
+    font-size: 13px;
+    color: #555555;
+    margin-top: 5px;
+    margin-bottom: 5px; 
 }
 
-#btnBack:hover {
-    background-color: #fdf2f2;
+#loginLink QWidget:hover {
+    text-decoration: underline;
 }
 
 /* ============================================================================
@@ -86,81 +114,113 @@ QWidget#loginPage, QWidget#signinPage {
    ============================================================================ */
 
 #dashboardPage {
-    background-color: #f8f9fa;
+    background-color: #f5f7fa;
 }
 
-#welcomeLabel {
+/* Area Putih Utama di Sebelah Kanan */
+#contentArea {
+    background-color: #f5f7fa;
+}
+
+/* Container Sidebar Kiri */
+#sidebarFrame {
+    background-color: #005088; 
+    border: none;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    min-width: 230px;
+    max-width: 230px;
+}
+
+/* Label Brand Text di Sidebar */
+#sidebarBrandTitle {
     font-size: 18px;
     font-weight: bold;
-    font-family: "Segoe UI", "Arial", sans-serif;
-    color: #2c3e50;         /* Warna teks biru gelap/charcoal */
-    padding-bottom: 5px;
-    border-bottom: 2px solid #e0e0e0; /* Garis tipis pembatas di bawah teks */
+    color: #ffffff;
+    font-family: "Segoe UI", sans-serif;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
 }
 
-/* Toolbar Frame (Card Area) */
+#sidebarLine {
+    background-color: #003d66;
+    max-height: 1px;
+}
+
+/* Komponen Tombol Menu Sidebar */
+#menuBtn, #menuBtnActive, #menuBtnLogout, #menuBtnExit {
+    padding: 12px 15px;
+    text-align: left;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 8px;
+    border: none;
+    color: #a3cbd6; 
+    background-color: transparent;
+}
+
+/* State Menu Aktif */
+#menuBtnActive {
+    color: #ffffff;
+    background-color: #003d66; 
+    font-weight: bold;
+}
+
+#menuBtn:hover {
+    color: #ffffff;
+    background-color: #004473;
+}
+
+/* Tombol Exit & Logout Khusus */
+#menuBtnLogout:hover {
+    color: #f39c12; 
+    background-color: #003d66;
+}
+
+#menuBtnExit:hover {
+    color: #e74c3c; /* Aksen merah destruktif */
+    background-color: #003d66;
+}
+
+/* Welcome Header */
+#welcomeLabel {
+    font-size: 22px;
+    font-weight: bold;
+    font-family: "Segoe UI", sans-serif;
+    color: #005088;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+/* Toolbar Card Area */
 #toolbarFrame {
     background-color: #ffffff;
-    border: 1px solid #e0e0e0;
+    border: 1px solid #e2e8f0;
     border-radius: 12px;
-    padding: 10px;
 }
 
-/* Modern Search Bar */
+/* Search Bar */
 #searchBar {
-    padding: 8px 15px;
-    border: 1px solid #dcdde1;
-    border-radius: 20px;
-    background-color: #f1f2f6;
-    color: #2f3640;
-    min-width: 280px;
+    padding: 10px 15px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background-color: #ffffff;
+    color: #334155;
+    min-width: 300px;
+    font-size: 13px;
 }
 
 #searchBar:focus {
-    border: 1px solid #005088;
-    background-color: #ffffff;
-}
-
-/* Table Design */
-#expenseTable {
-    background-color: #ffffff;
-    border: 1px solid #dcdde1;
-    border-radius: 8px;
-    gridline-color: #f1f2f6;
-    color: #2f3640; /* Memastikan teks tabel terlihat gelap */
+    border: 2px solid #005088;
     outline: none;
 }
 
-#expenseTable QHeaderView::section {
-    background-color: #005088;
-    color: white;
-    padding: 12px;
-    font-weight: bold;
-    border: none;
-    border-right: 1px solid #003d66;
-}
-
-#expenseTable::item {
-    padding: 10px;
-    border-bottom: 1px solid #f1f2f6;
-}
-
-#expenseTable::item:selected {
-    background-color: #e3f2fd;
-    color: #005088;
-    font-weight: bold;
-}
-
-#expenseTable::item:focus {
-    border: none;
-    outline: none;
-}
-
-/* CRUD Buttons */
+/* CRUD Buttons UI */
 #btnAdd, #btnUpdate, #btnDelete {
-    padding: 8px 18px;
+    padding: 10px 20px;
     font-weight: bold;
     border-radius: 8px;
+    font-size: 13px;
 }
 
 #btnAdd {
@@ -169,7 +229,9 @@ QWidget#loginPage, QWidget#signinPage {
     border: none;
 }
 
-#btnAdd:hover { background-color: #003d66; }
+#btnAdd:hover { 
+    background-color: #003d66; 
+}
 
 #btnUpdate {
     background-color: transparent;
@@ -177,7 +239,9 @@ QWidget#loginPage, QWidget#signinPage {
     border: 1px solid #f39c12;
 }
 
-#btnUpdate:hover { background-color: #fff9ed; }
+#btnUpdate:hover { 
+    background-color: #fffbeb; 
+}
 
 #btnDelete {
     background-color: transparent;
@@ -185,52 +249,93 @@ QWidget#loginPage, QWidget#signinPage {
     border: 1px solid #e74c3c;
 }
 
-#btnDelete:hover { background-color: #fff5f5; }
+#btnDelete:hover { 
+    background-color: #fef2f2; 
+}
 
-/* Statistik Button (Navigation Style) */
-#btnStatistik {
-    background-color: transparent;
-    color: #005088;
-    font-size: 14px;
+/* Container Navigasi Bulan Dashboard */
+#navFrameDashboard {
+    background-color: #005088;     
+    border-radius: 20px;          
+    padding: 5px 15px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+/* Teks Bulan di dalam Kapsul Dashboard */
+#labelBulanDash {
+    font-size: 16px;
     font-weight: bold;
+    color: #ffffff;            
+    font-family: "Segoe UI", sans-serif;
+    letter-spacing: 0.5px;
+}
+
+/* Tombol Lingkaran Putih Bulat (< dan >) di Dashboard */
+#btnNavMonthDash {
+    background-color: #ffffff;    
+    color: #005088;            
     border: none;
-    padding: 10px 20px;
-    text-align: right;
-}
-
-#btnStatistik:hover {
-    color: #00a8ff;
-    text-decoration: underline;
-}
-
-#labelBulan {
-    font-size: 18px;
+    border-radius: 15px;          
     font-weight: bold;
-    color: #005088;
-    min-width: 180px; /* Agar label tidak goyang saat nama bulan berubah panjangnya */
-    padding: 5px;
+    font-size: 14px;
+    padding-bottom: 2px;         
 }
 
-#btnNavMonth {
+/* Efek Hover saat mouse menunjuk tombol panah */
+#btnNavMonthDash:hover {
+    background-color: #e2e8f0;   
+    color: #003d66;
+}
+
+#btnNavMonthDash:pressed {
+    background-color: #cbd5e1;    
+}
+
+#expenseTable {
     background-color: #ffffff;
-    color: #005088;
-    border: 2px solid #005088;
-    border-radius: 15px; 
+    border: 1px solid #e2e8f0;   
+    border-radius: 10px;
+    gridline-color: #f1f5f9;     
+    color: #334155;             
+    outline: none;              
+}
+
+/* Header Tabel */
+#expenseTable QHeaderView::section {
+    background-color: #f8fafc;    
+    color: #475569;               
+    padding: 12px;
     font-weight: bold;
-    font-size: 14px; /* Kecilkan sedikit agar ruang gerak teks lebih luas */
+    font-size: 13px;
+    border: none;
+    border-bottom: 2px solid #e2e8f0; 
+}
+
+/* Gaya Baris/Item Tabel */
+#expenseTable::item {
+    padding: 12px;
+    border-bottom: 1px solid #f1f5f9; 
+}
+
+/* Efek Hover: Berubah warna lembut saat kursor melintas di atas baris */
+#expenseTable::item:hover {
+    background-color: #f8fafc; 
+    color: #005088;
+}
+
+/* Efek Selected: Warna saat baris diklik/dipilih */
+#expenseTable::item:selected {
+    background-color: #e0f2fe;    
+    color: #0369a1;              
+    font-weight: bold;
     outline: none;
-    padding-bottom: 3px;        
-    text-align: center;  
+    border: none;
 }
 
-#btnNavMonth:hover {
-    background-color: #005088;
-    color: #ffffff;
-}
-
-#btnNavMonth:pressed {
-    background-color: #003d66;
-    border-color: #003d66;
+#expenseTable::item:focus {
+    border: none;
+    outline: none;
 }
 
 /* ============================================================================
@@ -238,186 +343,200 @@ QWidget#loginPage, QWidget#signinPage {
    ============================================================================ */
 
 #statistikPage {
-    background-color: #f0f2f5; 
+    background-color: #f5f7fa; 
 }
 
-/* Tombol Kembali ke Dashboard */
-#btnBack {
+/* Base Style untuk Ketiga Kartu */
+#cardTotalExpense, #cardCountExpense, #cardDominantExpense {
     background-color: #ffffff;
-    color: #e74c3c; /* Merah lembut agar kontras dengan navigasi biru */
-    border: 2px solid #e74c3c;
-    border-radius: 10px;
-    padding: 8px 15px;
+    border: 1px solid #e2e8f0;   
+    border-radius: 12px;          
+    padding: 18px 22px;
+    min-height: 80px;
+}
+
+/* 1A. Kustomisasi Kartu Total Pengeluaran (Aksen Kiri Hijau) */
+#cardTotalExpense {
+    border-left: 5px solid #00a676; 
+}
+
+/* 1B. Kustomisasi Kartu Jumlah Transaksi (Aksen Kiri Abu Slate) */
+#cardCountExpense {
+    border-left: 5px solid #475569; 
+}
+
+/* 1C. Kustomisasi Kartu Kategori Dominan (Aksen Kiri Biru Navy) */
+#cardDominantExpense {
+    border-left: 5px solid #005088; 
+}
+
+/* Judul Kecil Deskriptif di Bagian Atas Kartu */
+#statCardTitle {
+    font-size: 11px;
+    font-weight: 700;
+    color: #64748b;              
+    letter-spacing: 1px;          
+    text-transform: uppercase;    
+}
+
+/* Angka Utama untuk Jumlah Transaksi Umum */
+#statCardValue {
+    font-size: 22px;
     font-weight: bold;
-    font-size: 13px;
+    color: #1e293b;               
+    margin-top: 5px;
+    font-family: "Segoe UI", sans-serif;
 }
 
-#btnBack:hover {
-    background-color: #e74c3c;
-    color: #ffffff;
-}
-
-/* Container Navigasi Bulan */
-#navFrameStat {
-    background-color: #005088;
-    border-radius: 15px;
-    padding: 5px;
-}
-
-/* Label Bulan di Halaman Statistik */
-#labelBulanStat {
-    font-size: 18px;
-    font-weight: bold;
-    color: #ffffff; /* Putih karena background frame navigasi biru */
-    padding: 5px;
-}
-
-/* Tombol Navigasi (Lingkaran Putih) */
-#btnNavMonthStat {
-    background-color: #ffffff;
-    color: #005088;
-    border: none;
-    border-radius: 15px; /* Setengah dari 35px agar bulat sempurna */
-    font-weight: bold;
-    padding-bottom: 3px;
-    font-size: 16px;
-}
-
-#btnNavMonthStat:hover {
-    background-color: #e0e0e0;
-}
-
-/* Label Total Pengeluaran (Highlight Utama) */
-#labelTotalStat {
+/* Angka Utama Khusus Total Pengeluaran */
+#statCardValueTotal {
     font-size: 24px;
     font-weight: bold;
-    color: #00a676; /* Hijau sukses/uang */
-    background-color: #ffffff;
-    border: 1px solid #dcdcdc;
-    border-radius: 12px;
-    padding: 15px;
-    margin: 0px;
+    color: #00a676;               
+    margin-top: 4px;
+    font-family: "Segoe UI", sans-serif;
 }
 
-/* Container Grafik */
+/* Angka/Teks Utama Khusus Kategori Dominan */
+#statCardValueDominant {
+    font-size: 20px;
+    font-weight: bold;
+    color: #005088;               
+    margin-top: 5px;
+    font-family: "Segoe UI", sans-serif;
+}
+
+/* Container Kapsul Latar Belakang Navy */
+#navFrameStat {
+    background-color: #005088;    
+    border-radius: 20px;          
+    padding: 5px 15px;
+}
+
+/* Label Teks Nama Bulan di Dalam Kapsul */
+#labelBulanStat {
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;              
+    font-family: "Segoe UI", sans-serif;
+    letter-spacing: 0.5px;
+}
+
+/* Tombol Lingkaran Putih Bulat (< dan >) */
+#btnNavMonthStat {
+    background-color: #ffffff;
+    color: #005088;               
+    border: none;
+    border-radius: 15px;          
+    font-weight: bold;
+    font-size: 14px;
+    padding-bottom: 2px;          
+}
+
+/* Efek Interaksi Tombol Bulan */
+#btnNavMonthStat:hover {
+    background-color: #e2e8f0;   
+    color: #003d66;
+}
+
+#btnNavMonthStat:pressed {
+    background-color: #cbd5e1;    
+}
+
 #chartContainer {
     background-color: #ffffff;
-    border-radius: 20px;
-    border: 1px solid #dcdcdc;
-    padding: 10px;
-}
-
-#btnKlasifikasi {
-    background-color: #ffffff;
-    color: #00a676; /* Warna hijau agar senada dengan nuansa uang/Klasifikasi */
-    border: 2px solid #00a676;
-    border-radius: 10px;
-    padding: 8px 15px;
-    font-weight: bold;
-    font-size: 13px;
-}
-
-#btnKlasifikasi:hover {
-    background-color: #00a676;
-    color: #ffffff;
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+    padding: 15px;
 }
 
 /* ============================================================================
-   HALAMAN KLASIFIKASI
+   HALAMAN KLASIFIKASI 
    ============================================================================ */
 
-#klasifikasiPage {
-    background-color: #f0f2f5; /* Senada dengan statistikPage */
-}
-
-/* Header Text */
-#titleLabel {
-    font-size: 24px;
-    font-weight: bold;
-    color: #005088; /* Menggunakan Biru Navy Statistik */
-}
-
+/* Deskripsi Subtitle Header Kiri */
 #subtitleLabel {
     font-size: 13px;
-    color: #475569;
+    color: #64748b; 
     font-weight: 500;
+    margin-bottom: 5px;
 }
 
-/* Tombol Kembali (Menggunakan skema warna Merah Statistik) */
-#btnBack {
-    background-color: #ffffff;
-    color: #e74c3c;
-    border: 2px solid #e74c3c;
-    border-radius: 10px;
-    font-weight: bold;
-    font-size: 13px;
-}
-
-#btnBack:hover {
-    background-color: #e74c3c;
-    color: #ffffff;
-}
-
-/* Card Utama (Senada dengan chartContainer) */
+/* Kotak Kartu Utama AI */
 #classifierCard {
     background-color: #ffffff;
-    border: 1px solid #dcdcdc;
-    border-radius: 20px;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px; 
 }
 
-/* Input Area */
+/* Label Instruksi Input */
 #inputInstruction {
-    font-size: 15px;
+    font-size: 14px;
     font-weight: bold;
-    color: #005088;
+    color: #475569;
 }
 
+/* Field Ketik Deskripsi Transaksi */
 #inputDeskripsi {
     background-color: #ffffff;
-    border: 1px solid #dcdcdc;
-    border-radius: 10px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
     padding: 0px 15px;
-    font-size: 15px;
-    color: #333333;
+    font-size: 14px;
+    color: #1e293b;
 }
 
 #inputDeskripsi:focus {
-    border: 2px solid #005088; /* Highlight biru saat mengetik */
+    border: 2px solid #005088; 
 }
 
-/* Tombol Analisis (Menggunakan skema warna Hijau Statistik) */
+/* Tombol Analisis Utama */
 #btnKlasifikasi2 {
-    background-color: #ffffff;
-    color: #00a676; 
-    border: 2px solid #00a676;
-    border-radius: 10px;
-    padding: 8px 15px;
+    background-color: #00a676; 
+    color: #ffffff; 
+    border: none;
+    border-radius: 8px;
     font-weight: bold;
-    font-size: 20px;
+    font-size: 14px;
 }
 
 #btnKlasifikasi2:hover {
-    background-color: #00a676;
-    color: #ffffff;
+    background-color: #008760;
 }
 
-/* Garis Pemisah */
+/* Garis Pembatas Sesi */
 #dividerLine {
-    background-color: #eeeeee;
+    background-color: #e2e8f0;
     max-height: 1px;
 }
 
-/* Bagian Hasil */
+/* Header Kecil Hasil Prediksi */
 #resultHeader {
     letter-spacing: 2px;
     font-size: 11px;
-    font-weight: bold;
-    color: #7f8c8d;
+    font-weight: 700;
+    color: #94a3b8;
+    text-transform: uppercase;
 }
 
+/* Label Utama Tempat Text Hasil Prediksi Ditampilkan */
 #labelHasil {
-    font-size: 32px;
+    font-size: 26px;
     font-weight: bold;
-    color: #005088; /* Kembali ke Biru Navy untuk hasil utama */
+    color: #64748b; 
     margin-top: 5px;
+    font-family: "Segoe UI", sans-serif;
+}
+
+/* PENGATURAN WARNA PREDIKSI DINAMIS BERDASARKAN PROPERTI QT STATE */
+#labelHasil[categoryState="food"] {
+    color: #f39c12; 
+}
+
+#labelHasil[categoryState="transport"] {
+    color: #1abc9c; 
+}
+
+#labelHasil[categoryState="default"] {
+    color: #005088; 
 }

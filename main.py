@@ -1,10 +1,10 @@
 import sys
 import os
 from PySide6.QtWidgets import QApplication
-from PySide6.QtGui import QIcon
 
 from database.db_manager import DatabaseManager
 from views.main_window import MainWindow
+from views.splash_screen import SplashScreen 
 
 def load_stylesheet(app, filepath):
     """Menerapkan QSS ke aplikasi jika file ditemukan."""
@@ -23,19 +23,25 @@ def main():
     
     # 2. Path Konfigurasi
     base_dir = os.path.dirname(os.path.abspath(__file__))
-    qss_path = os.path.join(base_dir, "assets", "style.qss") # Sesuaikan folder assets Anda
+    qss_path = os.path.join(base_dir, "assets", "style.qss")
 
-    # 3. Terapkan Stylesheet
+    # 3. Terapkan Stylesheet 
     load_stylesheet(app, qss_path)
     
     # 4. Inisialisasi Database
     db = DatabaseManager('ExpenseTracker.db')
     
-    # 5. Jalankan Window Utama
+    # 5. Inisialisasi Window Utama 
     window = MainWindow(db)
-    window.show()
     
-    # 6. Main Loop
+    # 6. Jalankan Splash Screen 
+    splash = SplashScreen()
+    splash.showFullScreen()
+    
+    # Logika Interseptor: Jalankan MainWindow HANYA setelah animasi splash selesai
+    splash.animasi_selesai.connect(window.showFullScreen)
+    
+    # 7. Main Loop
     sys.exit(app.exec())
 
 if __name__ == "__main__":

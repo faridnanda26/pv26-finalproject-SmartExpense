@@ -18,7 +18,6 @@ class Login(QWidget):
         self.init_ui()
 
     def init_ui(self):
-
         # 1. Layout Utama Halaman (Background luar kartu)
         main_layout = QVBoxLayout(self) 
         main_layout.setAlignment(Qt.AlignCenter)
@@ -26,21 +25,18 @@ class Login(QWidget):
 
         # 2. Container Kartu Login (Area Putih)
         self.login_card = QFrame()
-        self.login_card.setObjectName("loginCard") 
-        # Batasi ukuran kartu agar tidak melebar memenuhi QMainWindow
-        self.login_card.setFixedSize(450, 350) 
+        self.login_card.setObjectName("loginCard")
+        self.login_card.setFixedSize(450, 420) 
         
         card_layout = QVBoxLayout(self.login_card)
-        card_layout.setContentsMargins(40, 30, 40, 30)
-        card_layout.setSpacing(20)
+        card_layout.setContentsMargins(40, 35, 40, 35)
+        card_layout.setSpacing(18)
 
         # 3. Logo Aplikasi
         self.lblLogo = QLabel()
-        pixmap = QPixmap("assets/logo.png") # Ganti dengan nama file logo Anda
-        # Resize logo ke ukuran yang pas (misal 80x80 px) agar tetap tajam
+        pixmap = QPixmap("assets/logo.png") 
         self.lblLogo.setPixmap(pixmap.scaled(80, 80, Qt.KeepAspectRatio, Qt.SmoothTransformation))
         self.lblLogo.setAlignment(Qt.AlignCenter)
-        self.lblLogo.setContentsMargins(0, 0, 0, 10) # Beri jarak sedikit ke bawah
         card_layout.addWidget(self.lblLogo)
 
         # 4. Judul
@@ -59,54 +55,54 @@ class Login(QWidget):
         self.lePassword.setEchoMode(QLineEdit.EchoMode.Password)
         card_layout.addWidget(self.lePassword)
 
-        # 6. Buttons
-        btn_layout = QHBoxLayout()
+        # 6. Tombol Masuk Utama (Lebar Penuh)
         self.btnLogin = QPushButton('Masuk')
         self.btnLogin.setObjectName("btnLogin") 
         self.btnLogin.setCursor(Qt.PointingHandCursor)
+        self.btnLogin.setFixedHeight(45) 
         self.btnLogin.clicked.connect(self.handle_login)
-        
-        self.btnSignin = QPushButton('Daftar')
-        self.btnSignin.setObjectName("btnGoToSignup") 
-        self.btnSignin.setCursor(Qt.PointingHandCursor)
-        self.btnSignin.clicked.connect(self.go_to_signup.emit)
-        
-        btn_layout.addWidget(self.btnLogin)
-        btn_layout.addWidget(self.btnSignin)
+        card_layout.addWidget(self.btnLogin)
 
-        card_layout.addLayout(btn_layout)
+        # 7. Teks Tautan Registrasi
+        self.lblSignupLink = QLabel('Belum punya akun? <a href="#signup" style="text-decoration: none; color: #005088; font-weight: bold;">Daftar</a>')
+        self.lblSignupLink.setObjectName("signupLink")
+        self.lblSignupLink.setAlignment(Qt.AlignCenter)
+        self.lblSignupLink.setCursor(Qt.PointingHandCursor)
         
-        # 7. Masukkan kartu ke layout utama
+        # Mengizinkan interaksi link HTML dan menghubungkannya ke signal
+        self.lblSignupLink.setTextInteractionFlags(Qt.LinksAccessibleByMouse)
+        self.lblSignupLink.linkActivated.connect(lambda: self.go_to_signup.emit())
+        
+        card_layout.addWidget(self.lblSignupLink)
+        
+        # 8. Masukkan kartu ke layout utama
         main_layout.addWidget(self.login_card)
 
     def handle_login(self):
-        # Ambil input dari QLineEdit 
         username = self.leUsername.text().strip()
         password = self.lePassword.text().strip()
 
-        # 1. Jalankan Validasi Username menggunakan class Validator
+        # 1. Validasi Username
         is_valid_user, msg_user = Validator.validasi_username(username)
         if not is_valid_user:
             QMessageBox.warning(self, "Input Salah", msg_user)
-            self.leUsername.setFocus() # Arahkan kursor kembali ke username
+            self.leUsername.setFocus()
             return
 
-        # 2. Jalankan Validasi Password menggunakan class Validator
+        # 2. Validasi Password
         is_valid_pw, msg_pw = Validator.validasi_password(password)
         if not is_valid_pw:
             QMessageBox.warning(self, "Input Salah", msg_pw)
-            self.lePassword.setFocus() # Arahkan kursor kembali ke password
+            self.lePassword.setFocus()
             return
 
-        # 3. Jika lolos validasi, baru cek ke Database
+        # 3. Cek Ke Database
         user = self.db.check_login(username, password)
         
         if user:
-            # Reset input sebelum pindah halaman
             self.leUsername.clear()
             self.lePassword.clear()
             QMessageBox.information(self, "Berhasil", f"Selamat datang, {user['nama_lengkap']}!")
-            # Kirim signal login sukses
             self.login_success.emit(user['id'], user['nama_lengkap'])
         else:
             QMessageBox.critical(self, "Gagal", "Username atau Password salah.")

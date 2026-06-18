@@ -88,7 +88,7 @@ class DatabaseManager:
     def register_user(self, username, password, nama):
         """
         Mendaftarkan user baru ke tabel users.
-        Return: (True/False, pesan_error/sukses)
+        Return: (True/False)
         """
         try:
             with self.get_connection() as conn:
@@ -199,7 +199,6 @@ class DatabaseManager:
     def get_expenses_by_month(self, user_id, bulan, tahun):
         try:
             with self.get_connection() as conn:
-                # %m butuh format 01, 02 dst, jadi kita zfill
                 bulan_str = str(bulan).zfill(2)
                 tahun_str = str(tahun)
                 

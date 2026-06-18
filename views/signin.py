@@ -19,35 +19,34 @@ class SignIn(QWidget):
         self.init_ui()
 
     def init_ui(self):
-        # Layout Utama Halaman
+        # 1. Layout Utama Halaman
         main_layout = QVBoxLayout(self) 
         main_layout.setAlignment(Qt.AlignCenter)
         main_layout.setContentsMargins(0, 0, 0, 0)
 
-        # Container Kartu Sign-In 
+        # 2. Container Kartu Sign-In 
         self.signup_card = QFrame()
-        self.signup_card.setObjectName("signupCard") 
-        self.signup_card.setFixedSize(450, 460) 
+        self.signup_card.setObjectName("signupCard")
+        self.signup_card.setFixedSize(450, 480) 
         
         card_layout = QVBoxLayout(self.signup_card)
-        card_layout.setContentsMargins(40, 30, 40, 30)
-        card_layout.setSpacing(15)
+        card_layout.setContentsMargins(40, 35, 40, 35)
+        card_layout.setSpacing(18)
 
-        # Logo
+        # 3. Logo Aplikasi
         self.lblLogo = QLabel()
         logo_pixmap = QPixmap("assets/logo.png") 
         self.lblLogo.setPixmap(logo_pixmap.scaled(80, 80, Qt.KeepAspectRatio, Qt.SmoothTransformation))
         self.lblLogo.setAlignment(Qt.AlignCenter)
-        self.lblLogo.setContentsMargins(0, 0, 0, 5)
         card_layout.addWidget(self.lblLogo) 
 
-        # Judul
+        # 4. Judul
         self.label = QLabel('DAFTAR AKUN BARU')
         self.label.setObjectName("signupTitle") 
         self.label.setAlignment(Qt.AlignCenter)
         card_layout.addWidget(self.label)
 
-        # Input Fields
+        # 5. Input Fields
         self.leFullName = QLineEdit()
         self.leFullName.setPlaceholderText('Nama Lengkap')
         card_layout.addWidget(self.leFullName)
@@ -61,24 +60,26 @@ class SignIn(QWidget):
         self.lePassword.setEchoMode(QLineEdit.EchoMode.Password)
         card_layout.addWidget(self.lePassword)
 
-        # Layout Tombol
-        btn_layout = QHBoxLayout()
-        
-        # Tombol Daftar 
+        # 6. Tombol Daftar Utama 
         self.btnRegister = QPushButton('Daftar Sekarang')
         self.btnRegister.setObjectName("btnRegister") 
         self.btnRegister.setCursor(Qt.PointingHandCursor)
+        self.btnRegister.setFixedHeight(45)
         self.btnRegister.clicked.connect(self.handle_signup)
-        btn_layout.addWidget(self.btnRegister)
+        card_layout.addWidget(self.btnRegister)
 
-        # Tombol Batal
-        self.btnBack = QPushButton('Batal')
-        self.btnBack.setObjectName("btnBack") 
-        self.btnBack.setCursor(Qt.PointingHandCursor)
-        self.btnBack.clicked.connect(self.go_to_login.emit)
-        btn_layout.addWidget(self.btnBack)
+        # 7. Teks Tautan Kembali 
+        self.lblLoginLink = QLabel('Sudah punya akun? <a href="#login" style="text-decoration: none; color: #005088; font-weight: bold;">Login</a>')
+        self.lblLoginLink.setObjectName("loginLink")
+        self.lblLoginLink.setAlignment(Qt.AlignCenter)
+        self.lblLoginLink.setCursor(Qt.PointingHandCursor)
+        
+        # Mengizinkan interaksi link HTML dan dihubungkan ke signal
+        self.lblLoginLink.setTextInteractionFlags(Qt.LinksAccessibleByMouse)
+        self.lblLoginLink.linkActivated.connect(lambda: self.go_to_login.emit())
+        card_layout.addWidget(self.lblLoginLink)
 
-        card_layout.addLayout(btn_layout)
+        # 8. Masukkan kartu ke layout utama
         main_layout.addWidget(self.signup_card)
 
     def handle_signup(self):
@@ -87,7 +88,7 @@ class SignIn(QWidget):
         username = self.leUsername.text().strip()
         password = self.lePassword.text().strip()
 
-        # 1. Validasi Nama menggunakan Validator 
+        # 1. Validasi Nama
         is_valid_nama, msg_nama = Validator.validasi_nama(nama)
         if not is_valid_nama:
             QMessageBox.warning(self, "Input Salah", msg_nama)
@@ -109,17 +110,13 @@ class SignIn(QWidget):
             return
 
         # 4. Kirim ke Database
-        # register_user mengembalikan (True/False, Pesan)
         success, message = self.db.register_user(username, password, nama)
 
         if success:
             QMessageBox.information(self, "Sukses", "Akun berhasil dibuat! Silakan login.")
-            # Bersihkan form
             self.leFullName.clear()
             self.leUsername.clear()
             self.lePassword.clear()
-            # Pindah ke tab Login otomatis
             self.go_to_login.emit()
         else:
-            # Biasanya gagal karena username sudah ada (Unique Constraint)
             QMessageBox.critical(self, "Gagal Daftar", message)
