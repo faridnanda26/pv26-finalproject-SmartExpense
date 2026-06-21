@@ -1,30 +1,25 @@
 import os
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel, QGraphicsOpacityEffect
-from PySide6.QtCore import Qt, QPropertyAnimation, QParallelAnimationGroup, QSequentialAnimationGroup, QEasingCurve, QTimer, Signal, QSize, QPauseAnimation
+from PySide6.QtCore import Qt, QPropertyAnimation, QParallelAnimationGroup, QSequentialAnimationGroup, QEasingCurve, Signal, QPauseAnimation
 from PySide6.QtGui import QPixmap
 
 class SplashScreen(QWidget):
-    # Signal untuk memberi tahu main.py bahwa seluruh rangkaian animasi selesai
     animasi_selesai = Signal()
 
     def __init__(self):
         super().__init__()
-        # Menghilangkan border window bawaan OS
         self.setWindowFlags(Qt.Window | Qt.FramelessWindowHint)
         self.setAttribute(Qt.WA_StyledBackground, True)
         self.setObjectName("splashPage")
         
-        # Mengikuti mode Full Screen dari main
         self.showFullScreen()
         self.init_ui()
 
     def init_ui(self):
-        # Layout Utama Terpusat
         layout = QVBoxLayout(self)
         layout.setAlignment(Qt.AlignCenter)
         layout.setSpacing(20)
 
-        # 1. LOGO UTAMA ASET 
         self.lblLogo = QLabel()
         base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         logo_path = os.path.join(base_dir, "assets", "logo.png")
@@ -36,13 +31,11 @@ class SplashScreen(QWidget):
         self.lblLogo.setObjectName("splashLogo")
         layout.addWidget(self.lblLogo)
 
-        # 2. JUDUL APLIKASI 
         self.lblTitle = QLabel("SMART EXPENSE")
         self.lblTitle.setObjectName("splashTitle")
         self.lblTitle.setAlignment(Qt.AlignCenter)
         layout.addWidget(self.lblTitle)
 
-        # 3. SUBTITLE 
         self.lblSubtitle = QLabel("AI-POWERED EXPENSE TRACKER\n© 2026 TIM INFORMATIKA UNRAM")
         self.lblSubtitle.setObjectName("splashSubtitle")
         self.lblSubtitle.setAlignment(Qt.AlignCenter)
@@ -62,33 +55,23 @@ class SplashScreen(QWidget):
         self.lblSubtitle.setGraphicsEffect(self.opacity_subtitle)
 
         # STAGE 1: ANIMASI FADE-IN BERSAMAAN
-        # A. Logo Fade-In
         self.anim_logo_in = QPropertyAnimation(self.opacity_logo, b"opacity")
         self.anim_logo_in.setDuration(1500)
         self.anim_logo_in.setStartValue(0.0)
         self.anim_logo_in.setEndValue(1.0)
         self.anim_logo_in.setEasingCurve(QEasingCurve.InOutQuad)
 
-        # B. Judul Fade-In
         self.anim_title_in = QPropertyAnimation(self.opacity_title, b"opacity")
         self.anim_title_in.setDuration(1500)
         self.anim_title_in.setStartValue(0.0)
         self.anim_title_in.setEndValue(1.0)
         self.anim_title_in.setEasingCurve(QEasingCurve.InOutQuad)
 
-        # C. Subjudul Fade-In
         self.anim_subtitle_in = QPropertyAnimation(self.opacity_subtitle, b"opacity")
-        self.anim_subtitle_in.setDuration(1800) # Sedikit lebih lambat agar dramatis
+        self.anim_subtitle_in.setDuration(1800)
         self.anim_subtitle_in.setStartValue(0.0)
         self.anim_subtitle_in.setEndValue(1.0)
         self.anim_subtitle_in.setEasingCurve(QEasingCurve.InOutQuad)
-
-        # D. Efek Zooming Skala Logo via Animasi Geometri 
-        self.anim_logo_scale = QPropertyAnimation(self.lblLogo, b"maximumSize")
-        self.anim_logo_scale.setDuration(1500)
-        self.anim_logo_scale.setStartValue(QSize(100, 100))
-        self.anim_logo_scale.setEndValue(QSize(130, 130))
-        self.anim_logo_scale.setEasingCurve(QEasingCurve.OutCubic)
 
         self.grup_fade_in = QParallelAnimationGroup()
         self.grup_fade_in.addAnimation(self.anim_logo_in)
@@ -122,7 +105,7 @@ class SplashScreen(QWidget):
         self.master_cinema = QSequentialAnimationGroup()
         self.master_cinema.addAnimation(self.grup_fade_in)
         
-        self.jeda_layar = QPauseAnimation(1200) # Memberikan jeda diam selama 1.2 detik
+        self.jeda_layar = QPauseAnimation(1200) # Jeda diam 1.2 detik
         self.master_cinema.addAnimation(self.jeda_layar)
         
         self.master_cinema.addAnimation(self.grup_fade_out)

@@ -1,7 +1,8 @@
 from PySide6.QtWidgets import (
-    QWidget, QVBoxLayout, QHBoxLayout, QLabel, QFrame, QPushButton
+    QWidget, QVBoxLayout, QHBoxLayout, QLabel, QFrame, QPushButton, QGraphicsDropShadowEffect
 )
 from PySide6.QtCore import Qt, QDate
+from PySide6.QtGui import QColor
 from .chart_widget import ExpensePieChartWidget  
 
 class Statistik(QWidget):
@@ -79,6 +80,10 @@ class Statistik(QWidget):
         cards_layout.addWidget(self.card_count)
         cards_layout.addWidget(self.card_dominant)
         main_layout.addLayout(cards_layout)
+
+        self.buat_efek_shadow(self.card_total)
+        self.buat_efek_shadow(self.card_count)
+        self.buat_efek_shadow(self.card_dominant)
 
         # ============================================================================
         # BAGIAN 2: NAVIGASI PAGINASI BULAN 
@@ -197,3 +202,11 @@ class Statistik(QWidget):
             self.pie_chart.plot(df, f"Distribusi Kategori - {self.current_date.toString('MMMM yyyy')}")
         except Exception as e:
             print(f"Error merender grafik: {e}")
+
+    def buat_efek_shadow(self, parent_widget):
+            shadow = QGraphicsDropShadowEffect(parent_widget)
+            shadow.setBlurRadius(15)                      # Kelembutan bayangan
+            shadow.setXOffset(0)                          # Posisi bayangan X
+            shadow.setYOffset(4)                          # Posisi bayangan Y (Turun ke bawah)
+            shadow.setColor(QColor(0, 0, 0, 35))          # Warna hitam transparan (Alpha 35 dari 255)
+            parent_widget.setGraphicsEffect(shadow)
